@@ -42,14 +42,14 @@ class ViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-            
+        
         let cell = self.collectionView?
             .dequeueReusableCellWithReuseIdentifier(CellIdentifier.ImageCell, forIndexPath: indexPath) as CollectionViewImageCell
         
-        let asset = self.assets?[indexPath.item]
-        
-        asset?.fetchImageWithSize(self.cellSize) { image in
-            cell.imageView.image = image
+        if let asset = self.assets?[indexPath.item] {
+            asset.fetchImageWithSize(self.cellSize) { image in
+                cell.imageView.image = image
+            }
         }
         
         return cell

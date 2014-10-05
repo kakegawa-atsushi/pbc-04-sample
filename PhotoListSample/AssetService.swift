@@ -31,9 +31,7 @@ class AssetService {
         case .Authorized:
             completion(status)
         default:
-            PHPhotoLibrary.requestAuthorization { status in
-                completion(status)
-            }
+            PHPhotoLibrary.requestAuthorization(completion)
         }
     }
     
