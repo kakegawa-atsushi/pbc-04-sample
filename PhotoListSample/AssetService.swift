@@ -11,17 +11,21 @@ import Photos
 
 class AssetService {
     
-    func fetchImageAssets() -> [PHAsset] {
-        var assets = [PHAsset]()
-        
-        let fetchResult = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: nil)
-        fetchResult?.enumerateObjectsUsingBlock { result, index, stop in
-            if let asset = result? as? PHAsset {
-                assets.append(asset)
+    func fetchImageAssetsWithCompletion(completion: [PHAsset] -> Void) {
+        dispatch_async(dispatch_get_global_queue(NSQualityOfService.UserInitiated.toRaw(), 0)) {
+            var assets = [PHAsset]()
+            
+            let fetchResult = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: nil)
+            fetchResult?.enumerateObjectsUsingBlock { result, index, stop in
+                if let asset = result? as? PHAsset {
+                    assets.append(asset)
+                }
+            }
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                completion(assets)
             }
         }
-        
-        return assets
     }
     
     class func checkAndRequestAuthorizationWithCompletion(completion: PHAuthorizationStatus -> Void) {

@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class ViewController: UICollectionViewController {
+class PhotoListViewController: UICollectionViewController {
     
     private struct CellIdentifier {
         static let ImageCell = "ImageCellIdentifier"
@@ -66,9 +66,10 @@ class ViewController: UICollectionViewController {
     }
 
     private func loadAssets() {
-        assets = assetService.fetchImageAssets()
-        
-        self.collectionView?.reloadData()
+        assetService.fetchImageAssetsWithCompletion { assets in
+            self.assets = assets
+            self.collectionView?.reloadData()
+        }
     }
 }
 

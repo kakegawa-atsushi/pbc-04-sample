@@ -10,7 +10,7 @@
 		C843CFD419DFC62700591CCB /* CollectionViewImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C843CFD319DFC62700591CCB /* CollectionViewImageCell.swift */; };
 		C843CFD619DFD86000591CCB /* AssetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C843CFD519DFD86000591CCB /* AssetService.swift */; };
 		C8482A1819DFBCF200256F73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8482A1719DFBCF200256F73 /* AppDelegate.swift */; };
-		C8482A1A19DFBCF200256F73 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8482A1919DFBCF200256F73 /* ViewController.swift */; };
+		C8482A1A19DFBCF200256F73 /* PhotoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8482A1919DFBCF200256F73 /* PhotoListViewController.swift */; };
 		C8482A1D19DFBCF200256F73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8482A1B19DFBCF200256F73 /* Main.storyboard */; };
 		C8482A1F19DFBCF200256F73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8482A1E19DFBCF200256F73 /* Images.xcassets */; };
 		C8482A2219DFBCF200256F73 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8482A2019DFBCF200256F73 /* LaunchScreen.xib */; };
@@ -33,7 +33,7 @@
 		C8482A1219DFBCF200256F73 /* PhotoListSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoListSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8482A1619DFBCF200256F73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8482A1719DFBCF200256F73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C8482A1919DFBCF200256F73 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C8482A1919DFBCF200256F73 /* PhotoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListViewController.swift; sourceTree = "<group>"; };
 		C8482A1C19DFBCF200256F73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C8482A1E19DFBCF200256F73 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C8482A2119DFBCF200256F73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -82,7 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				C8482A1719DFBCF200256F73 /* AppDelegate.swift */,
-				C8482A1919DFBCF200256F73 /* ViewController.swift */,
+				C8482A1919DFBCF200256F73 /* PhotoListViewController.swift */,
 				C843CFD319DFC62700591CCB /* CollectionViewImageCell.swift */,
 				C843CFD519DFD86000591CCB /* AssetService.swift */,
 				C8482A1B19DFBCF200256F73 /* Main.storyboard */,
@@ -218,7 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8482A1A19DFBCF200256F73 /* ViewController.swift in Sources */,
+				C8482A1A19DFBCF200256F73 /* PhotoListViewController.swift in Sources */,
 				C843CFD419DFC62700591CCB /* CollectionViewImageCell.swift in Sources */,
 				C843CFD619DFD86000591CCB /* AssetService.swift in Sources */,
 				C8482A1819DFBCF200256F73 /* AppDelegate.swift in Sources */,

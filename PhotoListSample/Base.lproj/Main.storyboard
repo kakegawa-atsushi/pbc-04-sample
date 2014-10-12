@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Photo List View Controller-->
         <scene sceneID="TKH-io-bLd">
             <objects>
-                <collectionViewController id="w2A-F9-DOF" customClass="ViewController" customModule="PhotoListSample" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="w2A-F9-DOF" customClass="PhotoListViewController" customModule="PhotoListSample" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="hJI-ke-whI">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
