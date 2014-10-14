@@ -6,7 +6,6 @@
 //  Copyright (c) 2014年 Classmethod Inc. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class CollectionViewImageCell: UICollectionViewCell {
