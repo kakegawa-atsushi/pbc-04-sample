@@ -17,7 +17,7 @@ class AssetService {
             
             let fetchResult = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: nil)
             fetchResult?.enumerateObjectsUsingBlock { result, index, stop in
-                if let asset = result? as? PHAsset {
+                if let asset = result as? PHAsset {
                     assets.append(asset)
                 }
             }
