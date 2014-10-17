@@ -16,7 +16,6 @@ class PhotoListViewController: UICollectionViewController {
     }
     
     private let assetService = AssetService()
-    private var assets: [PHAsset]?
     private var cellSize: CGSize!
     
     // MARK: Lifecycle
@@ -38,7 +37,7 @@ class PhotoListViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.assets?.count ?? 0
+        return self.assetService.assetsCount
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -46,8 +45,8 @@ class PhotoListViewController: UICollectionViewController {
         let cell = self.collectionView?
             .dequeueReusableCellWithReuseIdentifier(CellIdentifier.ImageCell, forIndexPath: indexPath) as CollectionViewImageCell
         
-        if let asset = self.assets?[indexPath.item] {
-            asset.fetchImageWithSize(self.cellSize) { image in
+        if let asset = self.assetService.assetAtIndex(indexPath.item) {
+            self.assetService.fetchImageWithSize(asset, targetSize: self.cellSize) { image in
                 cell.imageView.image = image
             }
         }
@@ -66,9 +65,10 @@ class PhotoListViewController: UICollectionViewController {
     }
 
     private func loadAssets() {
-        assetService.fetchImageAssetsWithCompletion { assets in
-            self.assets = assets
-            self.collectionView?.reloadData()
+        self.assetService.fetchImageAssetsWithCompletion { succeeded in
+            if succeeded {
+                self.collectionView?.reloadData()
+            }
         }
     }
 }

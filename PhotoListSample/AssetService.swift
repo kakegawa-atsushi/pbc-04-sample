@@ -11,7 +11,25 @@ import Photos
 
 class AssetService {
     
-    func fetchImageAssetsWithCompletion(completion: [PHAsset] -> Void) {
+    private var assets: [PHAsset]?
+    
+    init() {
+    }
+    
+    var assetsCount: Int {
+        return self.assets?.count ?? 0
+    }
+    
+    func assetAtIndex(index: Int) -> PHAsset? {
+        switch self.assets {
+        case .Some(let assets) where index >= 0 && index < assets.count:
+            return assets[index]
+        default:
+            return nil
+        }
+    }
+    
+    func fetchImageAssetsWithCompletion(completion: Bool -> Void) {
         dispatch_async(dispatch_get_global_queue(NSQualityOfService.UserInitiated.toRaw(), 0)) {
             var assets = [PHAsset]()
             
@@ -22,10 +40,25 @@ class AssetService {
                 }
             }
             
+            self.assets = assets
+            
             dispatch_async(dispatch_get_main_queue()) {
-                completion(assets)
+                completion(true)
             }
         }
+    }
+    
+    func fetchImageWithSize(asset: PHAsset, targetSize: CGSize, completion: UIImage? -> Void) {
+        let imageManager = PHImageManager.defaultManager()
+        
+        imageManager.requestImageForAsset(asset,
+            targetSize: targetSize,
+            contentMode: PHImageContentMode.AspectFill,
+            options: nil,
+            resultHandler: { image, info in
+                completion(image)
+            }
+        )
     }
     
     class func checkAndRequestAuthorizationWithCompletion(completion: PHAuthorizationStatus -> Void) {
@@ -37,23 +70,6 @@ class AssetService {
         default:
             PHPhotoLibrary.requestAuthorization(completion)
         }
-    }
-    
-}
-
-extension PHAsset {
-    
-    func fetchImageWithSize(targetSize: CGSize, completion: UIImage? -> Void) {
-        let imageManager = PHImageManager.defaultManager()
-        
-        imageManager.requestImageForAsset(self,
-            targetSize: targetSize,
-            contentMode: PHImageContentMode.AspectFill,
-            options: nil,
-            resultHandler: { image, info in
-                completion(image)
-            }
-        )
     }
     
 }
