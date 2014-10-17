@@ -39,14 +39,10 @@ class AssetService {
         }
     }
     
-}
-
-extension PHAsset {
-    
-    func fetchImageWithSize(targetSize: CGSize, completion: UIImage? -> Void) {
+    func fetchImageWithSize(asset: PHAsset, targetSize: CGSize, completion: UIImage? -> Void) {
         let imageManager = PHImageManager.defaultManager()
         
-        imageManager.requestImageForAsset(self,
+        imageManager.requestImageForAsset(asset,
             targetSize: targetSize,
             contentMode: PHImageContentMode.AspectFill,
             options: nil,

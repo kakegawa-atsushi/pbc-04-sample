@@ -47,7 +47,7 @@ class PhotoListViewController: UICollectionViewController {
             .dequeueReusableCellWithReuseIdentifier(CellIdentifier.ImageCell, forIndexPath: indexPath) as CollectionViewImageCell
         
         if let asset = self.assets?[indexPath.item] {
-            asset.fetchImageWithSize(self.cellSize) { image in
+            assetService.fetchImageWithSize(asset, targetSize: self.cellSize) { image in
                 cell.imageView.image = image
             }
         }
