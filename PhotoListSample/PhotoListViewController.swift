@@ -15,7 +15,6 @@ class PhotoListViewController: UICollectionViewController {
         static let ImageCell = "ImageCellIdentifier"
     }
     
-    private let assetService = AssetService()
     private var assets: [PHAsset]?
     private var cellSize: CGSize!
     
@@ -28,7 +27,7 @@ class PhotoListViewController: UICollectionViewController {
         self.cellSize = CGSize(width: viewWidth, height: viewWidth)
         self.configureFlowLayout(self.cellSize)
         
-        AssetService.checkAndRequestAuthorizationWithCompletion { status in
+        self.checkAndRequestAuthorizationWithCompletion { status in
             if status == .Authorized {
                 self.loadAssets()
             }
@@ -47,7 +46,7 @@ class PhotoListViewController: UICollectionViewController {
             .dequeueReusableCellWithReuseIdentifier(CellIdentifier.ImageCell, forIndexPath: indexPath) as CollectionViewImageCell
         
         if let asset = self.assets?[indexPath.item] {
-            asset.fetchImageWithSize(self.cellSize) { image in
+            self.fetchImageWithSize(asset, targetSize: self.cellSize) { image in
                 cell.imageView.image = image
             }
         }
@@ -66,10 +65,51 @@ class PhotoListViewController: UICollectionViewController {
     }
 
     private func loadAssets() {
-        assetService.fetchImageAssetsWithCompletion { assets in
+        self.fetchImageAssetsWithCompletion { assets in
             self.assets = assets
             self.collectionView?.reloadData()
         }
+    }
+    
+    private func fetchImageAssetsWithCompletion(completion: [PHAsset] -> Void) {
+        dispatch_async(dispatch_get_global_queue(NSQualityOfService.UserInitiated.toRaw(), 0)) {
+            var assets = [PHAsset]()
+            
+            let fetchResult = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: nil)
+            fetchResult?.enumerateObjectsUsingBlock { result, index, stop in
+                if let asset = result as? PHAsset {
+                    assets.append(asset)
+                }
+            }
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                completion(assets)
+            }
+        }
+    }
+    
+    private func checkAndRequestAuthorizationWithCompletion(completion: PHAuthorizationStatus -> Void) {
+        let status = PHPhotoLibrary.authorizationStatus()
+        
+        switch status {
+        case .Authorized:
+            completion(status)
+        default:
+            PHPhotoLibrary.requestAuthorization(completion)
+        }
+    }
+    
+    private func fetchImageWithSize(asset: PHAsset, targetSize: CGSize, completion: UIImage? -> Void) {
+        let imageManager = PHImageManager.defaultManager()
+        
+        imageManager.requestImageForAsset(asset,
+            targetSize: targetSize,
+            contentMode: PHImageContentMode.AspectFill,
+            options: nil,
+            resultHandler: { image, info in
+                completion(image)
+            }
+        )
     }
 }
 
